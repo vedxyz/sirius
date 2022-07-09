@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Sirius</string>
+    <string name="login_bnav_label">SRS</string>
+    <string name="academiccalendar_bnav_label">Calendar</string>
+    <string name="cafeteria_bnav_label">Cafeteria</string>
+    <string name="verification_selector_label">Verification</string>
+    <string name="verification_selector_manual_label">Manual</string>
+    <string name="verification_selector_automatic_label">Automatic</string>
+    <string name="login_username_hint">Bilkent ID</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_continue_label">Continue</string>
+    <string name="login_email_password_hint">Email Password</string>
+    <string name="login_bilkent_email_hint">Bilkent Email</string>
+    <string name="login_bilkent_email_suffix">\@ug.bilkent.edu.tr</string>
+    <string name="login_automatic_verification_text_attempting">Attempting to obtain verification code…</string>
+    <string name="login_manual_verification_reference_text">Reference Code: <b>%1$s</b></string>
+    <string name="login_manual_verification_hint">Verification Code</string>
+    <string name="login_manual_verification_submit_text">Submit</string>
+    <string name="login_return_button_text">Return to SRS</string>
+    <string name="login_return_text">Looks like you\'ve already logged in.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_srs"
+    app:startDestination="@id/information_card_navfragment">
+
+    <fragment
+        android:id="@+id/information_card_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.InformationCardFragment"
+        android:label="InformationCardFragment" />
+</navigation>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_anonymous"
+    app:startDestination="@id/login_bnav_item">
+
+    <fragment
+        android:id="@+id/login_bnav_item"
+        android:name="xyz.vedat.sirius.fragments.anonymous.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_login_bnav_item_to_automatic_verification_navfragment"
+            app:destination="@id/automatic_verification_navfragment" />
+        <action
+            android:id="@+id/action_login_bnav_item_to_manual_verification_navfragment"
+            app:destination="@id/manual_verification_navfragment" />
+        <action
+            android:id="@+id/action_login_bnav_item_to_login_return_navfragment"
+            app:destination="@id/login_return_navfragment"
+            app:popUpTo="@id/login_bnav_item"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/cafeteria_bnav_item"
+        android:name="xyz.vedat.sirius.fragments.anonymous.CafeteriaFragment"
+        android:label="CafeteriaFragment" />
+    <fragment
+        android:id="@+id/academiccalendar_bnav_item"
+        android:name="xyz.vedat.sirius.fragments.anonymous.AcademicCalendarFragment"
+        android:label="AcademicCalendarFragment" />
+    <fragment
+        android:id="@+id/automatic_verification_navfragment"
+        android:name="xyz.vedat.sirius.fragments.anonymous.AutomaticVerificationFragment"
+        android:label="AutomaticVerificationFragment">
+        <action
+            android:id="@+id/action_automatic_verification_navfragment_to_srs_navactivity"
+            app:destination="@id/srs_navactivity"
+            app:popUpTo="@id/login_bnav_item" />
+    </fragment>
+    <fragment
+        android:id="@+id/manual_verification_navfragment"
+        android:name="xyz.vedat.sirius.fragments.anonymous.ManualVerificationFragment"
+        android:label="ManualVerificationFragment">
+        <action
+            android:id="@+id/action_manual_verification_navfragment_to_srs_navactivity"
+            app:destination="@id/srs_navactivity"
+            app:popUpTo="@id/login_bnav_item" />
+    </fragment>
+    <activity
+        android:id="@+id/srs_navactivity"
+        android:name="xyz.vedat.sirius.SRSActivity"
+        android:label="activity_srs"
+        tools:layout="@layout/activity_srs" />
+    <fragment
+        android:id="@+id/login_return_navfragment"
+        android:name="xyz.vedat.sirius.fragments.anonymous.LoginReturnFragment"
+        android:label="LoginReturnFragment">
+        <action
+            android:id="@+id/action_login_return_navfragment_to_srs_navactivity"
+            app:destination="@id/srs_navactivity" />
+    </fragment>
+</navigation>
