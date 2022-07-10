@@ -5,9 +5,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import androidx.annotation.IdRes
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.textfield.TextInputLayout
 import xyz.vedat.sirius.R
@@ -37,6 +41,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         watchEmailText(view)
         toggleVerificationMethod(view)
         registerContinueButtonListener(view)
+        restoreCredentials(view)
     }
 
     private fun watchEmailText(view: View) {
@@ -87,9 +92,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             when (toggleGroup.checkedButtonId) {
                 R.id.verification_selector_manual -> {
+                    saveCredentials(bilkentIdValue, passwordValue)
                     viewModel.beginManualVerification(view, bilkentIdValue, passwordValue)
                 }
                 R.id.verification_selector_automatic -> {
+                    saveCredentials(bilkentIdValue, passwordValue, emailValue, emailPasswordValue)
                     viewModel.beginAutomaticVerification(
                         view,
                         bilkentIdValue,
@@ -104,4 +111,48 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun resolveEmail(emailString: String) =
         if (emailString.contains('@')) emailString else emailString + getString(R.string.login_bilkent_email_suffix)
+
+    private fun getSecretPrefs() = EncryptedSharedPreferences.create(
+        "main_secret_prefs",
+        MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+        requireContext(),
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+
+    private val secretPrefKeys = object {
+        val bilkentId = "login_bilkent_id"
+        val password = "login_password"
+        val email = "login_email_address"
+        val emailPassword = "login_email_password"
+    }
+
+    private fun saveCredentials(
+        bilkentId: String = "",
+        password: String = "",
+        email: String = "",
+        emailPassword: String = ""
+    ) {
+        getSecretPrefs().edit {
+            this.putString(secretPrefKeys.bilkentId, bilkentId)
+            this.putString(secretPrefKeys.password, password)
+            this.putString(secretPrefKeys.email, email)
+            this.putString(secretPrefKeys.emailPassword, emailPassword)
+        }
+    }
+
+    private fun restoreCredentials(view: View) {
+        val prefs = getSecretPrefs()
+        fun restore(@IdRes inputId: Int, key: String, def: String = "", transform: (String) -> String = { it }) =
+            prefs.getString(key, def)!!
+                .also { view.findViewById<TextInputLayout>(inputId).editText!!.setText(transform(it)) }
+
+        restore(R.id.login_username, secretPrefKeys.bilkentId)
+        restore(R.id.login_password, secretPrefKeys.password)
+        restore(
+            R.id.login_email_address,
+            secretPrefKeys.email
+        ) { it.substringBefore(getString(R.string.login_bilkent_email_suffix)) }
+        restore(R.id.login_email_password, secretPrefKeys.emailPassword)
+    }
 }
