@@ -1,85 +1,63 @@
 package xyz.vedat.sirius.viewmodels
 
-import android.util.Log
-import android.view.View
-import androidx.annotation.IdRes
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import srs.ManualVerificationIntermediary
 import srs.SRSSession
-import xyz.vedat.sirius.R
-import xyz.vedat.sirius.SessionManager
 
 class LoginViewModel : ViewModel() {
-    var manualVerificationIntermediary: ManualVerificationIntermediary? = null
-        private set
+    private val _authenticationResult = MutableLiveData<AuthenticationResult>()
+    val authenticationResult: LiveData<AuthenticationResult>
+        get() = _authenticationResult
 
-    fun beginManualVerification(view: View, bilkentId: String, password: String) {
-        val navController = view.findNavController()
+    fun beginManualVerification(bilkentId: String, password: String): LiveData<AuthenticationResult> {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 SRSSession.withManualVerification(bilkentId, password)
             }
 
-            manualVerificationIntermediary = result
-            navController.navigate(R.id.action_login_bnav_item_to_manual_verification_navfragment)
+            _authenticationResult.value = AuthenticationResult(result)
         }
+        return authenticationResult
     }
 
-    fun completeManualVerification(view: View, verificationCode: String) {
-        val navController = view.findNavController()
+    fun completeManualVerification(verificationCode: String): LiveData<AuthenticationResult> {
+        if (_authenticationResult.value == null)
+            throw IllegalStateException("Cannot verify without having started login")
+
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
-                manualVerificationIntermediary?.let { it.verify(verificationCode) }
+                _authenticationResult.value?.manualVerificationIntermediary?.let { it.verify(verificationCode) }
             }
 
             if (result == null) {
-                Log.w("Authentication", "Couldn't obtain SRS session")
+                _authenticationResult.value = AuthenticationResult("Couldn't verify code")
                 return@launch
             }
 
-            completeVerification(
-                navController,
-                R.id.action_manual_verification_navfragment_to_srs_navactivity,
-                result
-            )
+            _authenticationResult.value = AuthenticationResult(result)
         }
+        return authenticationResult
     }
 
     fun beginAutomaticVerification(
-        view: View,
         bilkentId: String,
         password: String,
         email: String,
         emailPassword: String
-    ) {
-        val navController = view.findNavController()
-        navController.navigate(R.id.action_login_bnav_item_to_automatic_verification_navfragment)
-
+    ): LiveData<AuthenticationResult> {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 SRSSession.withAutomatedVerification(bilkentId, password, email, emailPassword)
             }
 
-            completeVerification(
-                navController,
-                R.id.action_automatic_verification_navfragment_to_srs_navactivity,
-                result
-            )
+            _authenticationResult.value = AuthenticationResult(result)
         }
-    }
-
-    private fun completeVerification(
-        navController: NavController,
-        @IdRes destinationAction: Int,
-        session: SRSSession
-    ) {
-        SessionManager.session = session
-        navController.navigate(destinationAction)
+        return authenticationResult
     }
 }

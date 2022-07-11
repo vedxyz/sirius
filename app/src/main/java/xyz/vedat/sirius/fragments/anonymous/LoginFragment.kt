@@ -93,12 +93,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (toggleGroup.checkedButtonId) {
                 R.id.verification_selector_manual -> {
                     saveCredentials(bilkentIdValue, passwordValue)
-                    viewModel.beginManualVerification(view, bilkentIdValue, passwordValue)
+                    viewModel.beginManualVerification(bilkentIdValue, passwordValue).observe(viewLifecycleOwner) {
+                        if (it.success) {
+                            findNavController().navigate(R.id.action_login_bnav_item_to_manual_verification_navfragment)
+                        } else {
+                            Log.e("AUTHENTICATION", "Failure Reason: '${it.failureReason}'")
+                        }
+                    }
                 }
                 R.id.verification_selector_automatic -> {
                     saveCredentials(bilkentIdValue, passwordValue, emailValue, emailPasswordValue)
                     viewModel.beginAutomaticVerification(
-                        view,
                         bilkentIdValue,
                         passwordValue,
                         emailValue,
