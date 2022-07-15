@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/anonymous_hub_navfragment">
+
+    <fragment
+        android:id="@+id/anonymous_hub_navfragment"
+        android:name="xyz.vedat.sirius.fragments.anonymous.AnonymousHubFragment"
+        android:label="AnonymousHubFragment" />
+
+    <fragment
+        android:id="@+id/srs_hub_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.SRSHubFragment"
+        android:label="SRSHubFragment" />
+
+</navigation>

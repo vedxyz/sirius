@@ -18,4 +18,5 @@
     <string name="login_manual_verification_submit_text">Submit</string>
     <string name="login_return_button_text">Return to SRS</string>
     <string name="login_return_text">Looks like you\'ve already logged in.</string>
+    <string name="srs_information_card_label">Information Card</string>
 </resources>

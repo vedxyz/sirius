@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_academiccalendar"
+    app:startDestination="@id/academiccalendar_navfragment">
+
+    <fragment
+        android:id="@+id/academiccalendar_navfragment"
+        android:name="xyz.vedat.sirius.fragments.anonymous.AcademicCalendarFragment"
+        android:label="AcademicCalendarFragment" />
+</navigation>

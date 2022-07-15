@@ -8,4 +8,8 @@
         android:id="@+id/information_card_navfragment"
         android:name="xyz.vedat.sirius.fragments.authenticated.InformationCardFragment"
         android:label="InformationCardFragment" />
+    <fragment
+        android:id="@+id/infoCardTestFragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.InfoCardTestFragment"
+        android:label="InfoCardTestFragment" />
 </navigation>

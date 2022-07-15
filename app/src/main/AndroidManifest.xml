@@ -26,9 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="xyz.vedat.sirius.SRSActivity"
-            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
