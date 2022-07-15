@@ -1,48 +1,77 @@
 package xyz.vedat.sirius.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import srs.ManualVerificationIntermediary
 import srs.SRSSession
+import xyz.vedat.sirius.R
+import xyz.vedat.sirius.SessionManager
+import xyz.vedat.sirius.defaultLogTag
 
 class LoginViewModel : ViewModel() {
-    private val _authenticationResult = MutableLiveData<AuthenticationResult>()
-    val authenticationResult: LiveData<AuthenticationResult>
-        get() = _authenticationResult
+    private val _uiState = MutableStateFlow(LoginUiState())
+    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-    fun beginManualVerification(bilkentId: String, password: String): LiveData<AuthenticationResult> {
+    private var manualVerificationIntermediary: ManualVerificationIntermediary? = null
+
+    fun beginManualVerification(bilkentId: String, password: String) {
+        Log.v(defaultLogTag, "Manual verification in process")
+
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 SRSSession.withManualVerification(bilkentId, password)
             }
 
-            _authenticationResult.value = AuthenticationResult(result)
+            manualVerificationIntermediary = result
+            _uiState.update {
+                it.copy(
+                    isLoading = false,
+                    verificationFragmentId = R.id.action_login_bnav_item_to_manual_verification_navfragment,
+                    manualVerificationReference = manualVerificationIntermediary!!.reference
+                )
+            }
         }
-        return authenticationResult
     }
 
-    fun completeManualVerification(verificationCode: String): LiveData<AuthenticationResult> {
-        if (_authenticationResult.value == null)
+    fun completeManualVerification(verificationCode: String) {
+        Log.v(defaultLogTag, "Manual verification completion in process")
+
+        if (manualVerificationIntermediary == null)
             throw IllegalStateException("Cannot verify without having started login")
+
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
 
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
-                _authenticationResult.value?.manualVerificationIntermediary?.let { it.verify(verificationCode) }
+                manualVerificationIntermediary?.let { it.verify(verificationCode) }
             }
 
             if (result == null) {
-                _authenticationResult.value = AuthenticationResult("Couldn't verify code")
+                _uiState.update {
+                    it.copy(isLoading = false, errorMessage = "Couldn't verify code")
+                }
                 return@launch
             }
 
-            _authenticationResult.value = AuthenticationResult(result)
+            SessionManager.session = result
+            _uiState.update {
+                it.copy(isLoading = false, isLoggedIn = true)
+            }
         }
-        return authenticationResult
     }
 
     fun beginAutomaticVerification(
@@ -50,14 +79,31 @@ class LoginViewModel : ViewModel() {
         password: String,
         email: String,
         emailPassword: String
-    ): LiveData<AuthenticationResult> {
+    ) {
+        Log.v(defaultLogTag, "Automatic verification in process")
+
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                verificationFragmentId = R.id.action_login_bnav_item_to_automatic_verification_navfragment
+            )
+        }
+
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 SRSSession.withAutomatedVerification(bilkentId, password, email, emailPassword)
             }
 
-            _authenticationResult.value = AuthenticationResult(result)
+            SessionManager.session = result
+            _uiState.update {
+                it.copy(isLoading = false, isLoggedIn = true)
+            }
         }
-        return authenticationResult
+    }
+
+    fun navigationConsumed() {
+        _uiState.update {
+            it.copy(verificationFragmentId = null)
+        }
     }
 }

@@ -3,17 +3,22 @@ package xyz.vedat.sirius.fragments.anonymous
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.annotation.IdRes
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 import xyz.vedat.sirius.R
 import xyz.vedat.sirius.SessionManager
 import xyz.vedat.sirius.viewmodels.LoginViewModel
@@ -24,7 +29,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onStart() {
         super.onStart()
 
-        if (SessionManager.hasSession) {
+        // TODO: Clean this up
+        if (SessionManager.hasSession && findNavController().backQueue.size != 0) {
             findNavController().navigate(R.id.action_login_bnav_item_to_login_return_navfragment)
         }
     }
@@ -36,6 +42,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         toggleVerificationMethod(view)
         registerContinueButtonListener(view)
         restoreCredentials(view)
+        handleUiState(view)
     }
 
     private fun watchEmailText(view: View) {
@@ -92,13 +99,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (toggleGroup.checkedButtonId) {
                 R.id.verification_selector_manual -> {
                     saveCredentials(bilkentIdValue, passwordValue)
-                    viewModel.beginManualVerification(bilkentIdValue, passwordValue).observe(viewLifecycleOwner) {
-                        if (it.success) {
-                            findNavController().navigate(R.id.action_login_bnav_item_to_manual_verification_navfragment)
-                        } else {
-                            Log.e("AUTHENTICATION", "Failure Reason: '${it.failureReason}'")
-                        }
-                    }
+                    viewModel.beginManualVerification(bilkentIdValue, passwordValue)
                 }
                 R.id.verification_selector_automatic -> {
                     saveCredentials(bilkentIdValue, passwordValue, emailValue, emailPasswordValue)
@@ -158,5 +159,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             secretPrefKeys.email
         ) { it.substringBefore(getString(R.string.login_bilkent_email_suffix)) }
         restore(R.id.login_email_password, secretPrefKeys.emailPassword)
+    }
+
+    private fun handleUiState(view: View) {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect {
+                    if (it.verificationFragmentId != null) {
+                        findNavController().navigate(it.verificationFragmentId)
+                        viewModel.navigationConsumed()
+                    } else if (it.errorMessage != null) {
+                        Log.e("AUTHENTICATION", "Failure Reason: '${it.errorMessage}'")
+                    }
+                }
+            }
+        }
     }
 }

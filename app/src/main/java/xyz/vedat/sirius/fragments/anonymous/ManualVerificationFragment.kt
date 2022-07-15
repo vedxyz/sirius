@@ -5,31 +5,52 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 import xyz.vedat.sirius.R
+import xyz.vedat.sirius.defaultLogTag
+import xyz.vedat.sirius.fragments.mainNavController
 import xyz.vedat.sirius.viewmodels.LoginViewModel
 
 class ManualVerificationFragment : Fragment(R.layout.fragment_verification_manual) {
     private val viewModel: LoginViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            Log.v(defaultLogTag, "Preventing back press during verification")
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeAuthentication(view)
+        handleUiState(view)
         registerSubmitButtonListener(view)
     }
 
-    private fun observeAuthentication(view: View) {
-        viewModel.authenticationResult.observe(viewLifecycleOwner) {
-            formatReferenceText(view, it.manualVerificationIntermediary?.reference)
+    private fun handleUiState(view: View) {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect {
+                    formatReferenceText(view, it.manualVerificationReference)
 
-            if (it.success && it.session != null) {
-                findNavController().navigate(R.id.action_manual_verification_navfragment_to_srs_navactivity)
-            } else if (!it.success) {
-                Log.e("AUTHENTICATION", "Failure Reason: '${it.failureReason}'")
+                    if (it.isLoggedIn) {
+                        Log.v(defaultLogTag, "Verification complete, navigating to SRS hub")
+                        findNavController().popBackStack()
+                        mainNavController.navigate(R.id.srs_hub_navfragment)
+                    } else if (it.errorMessage != null) {
+                        Log.e("AUTHENTICATION", "Failure Reason: '${it.errorMessage}'")
+                    }
+                }
             }
         }
     }
