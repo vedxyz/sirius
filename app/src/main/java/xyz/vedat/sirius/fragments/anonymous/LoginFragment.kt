@@ -19,7 +19,6 @@ import xyz.vedat.sirius.SessionManager
 import xyz.vedat.sirius.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
-    private lateinit var automaticVerificationItems: List<View>
     private val viewModel: LoginViewModel by activityViewModels()
 
     override fun onStart() {
@@ -32,11 +31,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        automaticVerificationItems = listOf(
-            view.findViewById(R.id.login_email_address),
-            view.findViewById(R.id.login_email_password)
-        )
 
         watchEmailText(view)
         toggleVerificationMethod(view)
@@ -64,6 +58,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun toggleVerificationMethod(view: View) {
+        val automaticVerificationItems: List<View> = listOf(
+            view.findViewById(R.id.login_email_address),
+            view.findViewById(R.id.login_email_password)
+        )
+
         view.findViewById<MaterialButtonToggleGroup>(R.id.verification_selector)
             .addOnButtonCheckedListener { _, checkedId, isChecked ->
                 when (checkedId) {
