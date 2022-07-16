@@ -23,4 +23,11 @@
     <string name="srs_navmenu_stars">STARS</string>
     <string name="srs_navmenu_return_main_menu_text">Return to main menu</string>
     <string name="loading_screen_default_text">Loading…</string>
+    <string name="information_card_headline_text">Information Card</string>
+    <string name="information_card_student_headline_text">Student</string>
+    <string name="information_card_advisor_headline_text">Advisor</string>
+    <string name="information_card_academic_headline_text">Academic</string>
+    <string name="information_card_ranking_headline_text">Ranking</string>
+    <string name="information_card_scholarship_headline_text">Scholarship</string>
+    <string name="information_card_contact_headline_text">Contact</string>
 </resources>

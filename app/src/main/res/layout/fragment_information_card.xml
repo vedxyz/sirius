@@ -1,17 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/srs_information_card_random_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hopefully loading"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        layout="@layout/loading_screen"
+        tools:visibility="gone" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/information_card_swipelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp">
+
+                <!-- TODO: This may be nicer if replaced with something like an appbar -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_card_headline_text"
+                    android:layout_marginBottom="12dp"
+                    android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_card_student_headline_text"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <include
+                    android:id="@+id/information_card_student_id"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_student_fullname"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_student_nationalid"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_student_faculty"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_student_department"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_student_status"
+                    layout="@layout/key_value_item" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_card_advisor_headline_text"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <include
+                    android:id="@+id/information_card_advisor_fullname"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_advisor_email"
+                    layout="@layout/key_value_item" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_card_academic_headline_text"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <include
+                    android:id="@+id/information_card_academic_registrationsemester"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_curriculumsemester"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_inclass"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_cgpa"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_gpa"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_standing"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_nominalcreditload"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_courselimits"
+                    layout="@layout/key_value_item" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_card_ranking_headline_text"
+                    android:textAppearance="?attr/textAppearanceListItemSecondary" />
+
+                <include
+                    android:id="@+id/information_card_academic_cohort"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_agpa"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_academic_details"
+                    layout="@layout/key_value_item" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_card_scholarship_headline_text"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <include
+                    android:id="@+id/information_card_scholarship_byplacement"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_scholarship_merit"
+                    layout="@layout/key_value_item" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_card_contact_headline_text"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <include
+                    android:id="@+id/information_card_contact_contactemail"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_contact_bilkentemail"
+                    layout="@layout/key_value_item" />
+
+                <include
+                    android:id="@+id/information_card_contact_mobilephone"
+                    layout="@layout/key_value_item" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</FrameLayout>

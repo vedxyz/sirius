@@ -1,30 +1,33 @@
 package xyz.vedat.sirius.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import srs.data.InformationCard
 import xyz.vedat.sirius.SessionManager
 
 class InformationCardViewModel : ViewModel() {
-    private val _informationCard: MutableLiveData<InformationCard> by lazy {
-        MutableLiveData<InformationCard>().also { fetch() }
-    }
+    private val _uiState = MutableStateFlow(InformationCardUiState())
+    val uiState: StateFlow<InformationCardUiState> = _uiState.asStateFlow()
 
-    val informationCard: LiveData<InformationCard>
-        get() = _informationCard
+    fun fetch() {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
 
-    private fun fetch() {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 SessionManager.session?.getInformationCard() ?: throw Exception("No session")
             }
 
-            _informationCard.value = result
+            _uiState.update {
+                it.copy(isLoading = false, informationCard = result)
+            }
         }
     }
 }
