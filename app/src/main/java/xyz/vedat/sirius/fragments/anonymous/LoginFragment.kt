@@ -146,6 +146,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
+    // TODO: This method may be slowing down tab-switching -- investigate
     private fun restoreCredentials(view: View) {
         val prefs = getSecretPrefs()
         fun restore(@IdRes inputId: Int, key: String, def: String = "", transform: (String) -> String = { it }) =
