@@ -13,7 +13,7 @@ import xyz.vedat.sirius.SessionManager
 
 class InformationCardViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(InformationCardUiState())
-    val uiState: StateFlow<InformationCardUiState> = _uiState.asStateFlow()
+    val uiState = _uiState.asStateFlow()
 
     fun fetch() {
         _uiState.update {
