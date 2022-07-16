@@ -48,7 +48,8 @@ class InformationCardFragment : Fragment(R.layout.fragment_information_card) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetch()
+        if (viewModel.uiState.value.informationCard == null)
+            viewModel.fetch()
 
         loadingScreen = view.findViewById(R.id.loading_screen)
         mainContent = view.findViewById(R.id.information_card_swipelayout)
