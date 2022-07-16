@@ -11,6 +11,6 @@
             android:id="@+id/misc_item"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_arrow_back_24"
-            android:title="@string/srs_navmenu_go_back_text" />
+            android:title="@string/srs_navmenu_return_main_menu_text" />
     </group>
 </menu>
