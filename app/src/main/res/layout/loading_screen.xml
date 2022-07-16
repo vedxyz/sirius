@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_verification_automatic"
+    android:id="@+id/loading_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/login_automatic_verification_progress"
+        android:id="@+id/loading_screen_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        app:layout_constraintBottom_toTopOf="@+id/login_automatic_verification_tw"
+        app:layout_constraintBottom_toTopOf="@+id/loading_screen_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/login_automatic_verification_tw"
+        android:id="@+id/loading_screen_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/login_automatic_verification_text_attempting"
+        android:text="@string/loading_screen_default_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_automatic_verification_progress" />
+        app:layout_constraintTop_toBottomOf="@+id/loading_screen_progress" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

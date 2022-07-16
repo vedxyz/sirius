@@ -3,6 +3,7 @@ package xyz.vedat.sirius.fragments.anonymous
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,7 +17,7 @@ import xyz.vedat.sirius.defaultLogTag
 import xyz.vedat.sirius.fragments.mainNavController
 import xyz.vedat.sirius.viewmodels.LoginViewModel
 
-class AutomaticVerificationFragment : Fragment(R.layout.fragment_verification_automatic) {
+class AutomaticVerificationFragment : Fragment(R.layout.loading_screen) {
     private val viewModel: LoginViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,9 @@ class AutomaticVerificationFragment : Fragment(R.layout.fragment_verification_au
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<TextView>(R.id.loading_screen_textview).text =
+            getString(R.string.login_automatic_verification_text_attempting)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

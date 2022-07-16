@@ -22,4 +22,5 @@
     <string name="srs_navmenu_sirius">SIRIUS</string>
     <string name="srs_navmenu_stars">STARS</string>
     <string name="srs_navmenu_return_main_menu_text">Return to main menu</string>
+    <string name="loading_screen_default_text">Loading…</string>
 </resources>
