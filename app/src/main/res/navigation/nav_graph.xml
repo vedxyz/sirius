@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/anonymous_hub_navfragment"
         android:name="xyz.vedat.sirius.fragments.anonymous.AnonymousHubFragment"
-        android:label="AnonymousHubFragment" />
+        android:label="AnonymousHubFragment">
+        <action
+            android:id="@+id/action_anonymous_hub_to_srs_hub"
+            app:destination="@id/srs_hub_navfragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/srs_hub_navfragment"

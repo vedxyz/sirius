@@ -28,7 +28,7 @@ class LoginReturnFragment : Fragment(R.layout.fragment_login_return) {
 
         view.findViewById<Button>(R.id.login_return_button).setOnClickListener {
             Log.v(defaultLogTag, "Attempting to navigate back to SRS hub")
-            mainNavController.navigate(R.id.srs_hub_navfragment)
+            mainNavController.navigate(R.id.action_anonymous_hub_to_srs_hub)
         }
     }
 }

@@ -40,7 +40,7 @@ class AutomaticVerificationFragment : Fragment(R.layout.loading_screen) {
                     if (it.isLoggedIn) {
                         Log.v(defaultLogTag, "Verification complete, navigating to SRS hub")
                         findNavController().popBackStack()
-                        mainNavController.navigate(R.id.srs_hub_navfragment)
+                        mainNavController.navigate(R.id.action_anonymous_hub_to_srs_hub)
                     } else if (it.errorMessage != null) {
                         Log.e("AUTHENTICATION", "Failure Reason: '${it.errorMessage}'")
                     }
