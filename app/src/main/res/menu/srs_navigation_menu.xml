@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/main_group_srs_menu"
-        android:title="Placeholder">
-        <menu>
-            <item
-                android:id="@+id/information_card_navfragment"
-                android:enabled="true"
-                android:title="@string/srs_information_card_label" />
-            <item
-                android:id="@+id/infoCardTestFragment"
-                android:enabled="true"
-                android:title="Test Card Thing" />
-        </menu>
-    </item>
+    <group android:id="@+id/main_group_srs_menu">
+        <item
+            android:id="@+id/information_card_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_information_card_label" />
+    </group>
     <group android:id="@+id/misc_group_srs_menu">
         <item
             android:id="@+id/misc_item"
             android:enabled="true"
-            android:title="Go back" />
+            android:icon="@drawable/ic_baseline_arrow_back_24"
+            android:title="@string/srs_navmenu_go_back_text" />
     </group>
 </menu>

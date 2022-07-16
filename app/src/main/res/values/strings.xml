@@ -19,4 +19,7 @@
     <string name="login_return_button_text">Return to SRS</string>
     <string name="login_return_text">Looks like you\'ve already logged in.</string>
     <string name="srs_information_card_label">Information Card</string>
+    <string name="srs_navmenu_sirius">SIRIUS</string>
+    <string name="srs_navmenu_stars">STARS</string>
+    <string name="srs_navmenu_go_back_text">Go back</string>
 </resources>
