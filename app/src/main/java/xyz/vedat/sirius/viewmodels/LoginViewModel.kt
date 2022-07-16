@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -17,7 +16,15 @@ import xyz.vedat.sirius.SessionManager
 import xyz.vedat.sirius.defaultLogTag
 
 class LoginViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(LoginUiState())
+    data class UiState(
+        val isLoading: Boolean = false,
+        val errorMessage: String? = null,
+        val isLoggedIn: Boolean = false,
+        val verificationFragmentId: Int? = null,
+        val manualVerificationReference: String? = null,
+    )
+
+    private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
     private var manualVerificationIntermediary: ManualVerificationIntermediary? = null
