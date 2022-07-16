@@ -5,14 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -22,7 +19,6 @@ import xyz.vedat.sirius.R
 import xyz.vedat.sirius.defaultLogTag
 import xyz.vedat.sirius.fragments.mainNavController
 import kotlin.math.max
-import kotlin.math.min
 
 class SRSHubFragment : Fragment(R.layout.fragment_srs_hub) {
 
@@ -45,7 +41,7 @@ class SRSHubFragment : Fragment(R.layout.fragment_srs_hub) {
         val navHostFragment = childFragmentManager.findFragmentById(R.id.srs_nav_host_fragment) as NavHostFragment
 
         navigationView.setupWithNavController(navHostFragment.navController)
-        navigationView.menu.findItem(R.id.misc_item).setOnMenuItemClickListener {
+        navigationView.menu.findItem(R.id.srs_nav_return_item).setOnMenuItemClickListener {
             mainNavController.popBackStack()
         }
 

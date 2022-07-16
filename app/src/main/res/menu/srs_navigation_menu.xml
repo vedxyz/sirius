@@ -5,10 +5,46 @@
             android:id="@+id/information_card_navfragment"
             android:enabled="true"
             android:title="@string/srs_information_card_label" />
+        <item
+            android:id="@+id/transcript_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_transcript_label" />
+        <item
+            android:id="@+id/curriculum_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_curriculum_label" />
+        <item
+            android:id="@+id/letter_grade_statistics_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_letter_grade_statistics_label" />
+        <item
+            android:id="@+id/gpa_calculation_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_gpa_calculation_label" />
+        <item
+            android:id="@+id/exams_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_exams_label" />
+        <item
+            android:id="@+id/grades_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_grades_label" />
+        <item
+            android:id="@+id/attendance_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_attendance_label" />
+        <item
+            android:id="@+id/semester_courses_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_semester_courses_label" />
+        <item
+            android:id="@+id/weekly_schedule_navfragment"
+            android:enabled="true"
+            android:title="@string/srs_weekly_schedule_label" />
     </group>
     <group android:id="@+id/misc_group_srs_menu">
         <item
-            android:id="@+id/misc_item"
+            android:id="@+id/srs_nav_return_item"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_arrow_back_24"
             android:title="@string/srs_navmenu_return_main_menu_text" />

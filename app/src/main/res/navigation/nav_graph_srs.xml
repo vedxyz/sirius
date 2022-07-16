@@ -8,4 +8,49 @@
         android:id="@+id/information_card_navfragment"
         android:name="xyz.vedat.sirius.fragments.authenticated.InformationCardFragment"
         android:label="InformationCardFragment" />
+
+    <fragment
+        android:id="@+id/attendance_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.AttendanceFragment"
+        android:label="AttendanceFragment" />
+
+    <fragment
+        android:id="@+id/curriculum_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.CurriculumFragment"
+        android:label="CurriculumFragment" />
+
+    <fragment
+        android:id="@+id/exams_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.ExamsFragment"
+        android:label="ExamsFragment" />
+
+    <fragment
+        android:id="@+id/gpa_calculation_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.GPACalculationFragment"
+        android:label="GPACalculationFragment" />
+
+    <fragment
+        android:id="@+id/grades_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.GradesFragment"
+        android:label="GradesFragment" />
+
+    <fragment
+        android:id="@+id/letter_grade_statistics_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.LetterGradeStatisticsFragment"
+        android:label="LetterGradeStatisticsFragment" />
+
+    <fragment
+        android:id="@+id/semester_courses_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.SemesterCoursesFragment"
+        android:label="SemesterCoursesFragment" />
+
+    <fragment
+        android:id="@+id/transcript_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.TranscriptFragment"
+        android:label="TranscriptFragment" />
+
+    <fragment
+        android:id="@+id/weekly_schedule_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.WeeklyScheduleFragment"
+        android:label="WeeklyScheduleFragment" />
 </navigation>

@@ -30,4 +30,13 @@
     <string name="information_card_ranking_headline_text">Ranking</string>
     <string name="information_card_scholarship_headline_text">Scholarship</string>
     <string name="information_card_contact_headline_text">Contact</string>
+    <string name="srs_attendance_label">Attendance</string>
+    <string name="srs_curriculum_label">Curriculum</string>
+    <string name="srs_exams_label">Exams</string>
+    <string name="srs_gpa_calculation_label">GPA Calculation</string>
+    <string name="srs_grades_label">Grades</string>
+    <string name="srs_letter_grade_statistics_label">Letter Grade Statistics</string>
+    <string name="srs_semester_courses_label">Semester Courses</string>
+    <string name="srs_transcript_label">Transcript</string>
+    <string name="srs_weekly_schedule_label">Weekly Schedule</string>
 </resources>
