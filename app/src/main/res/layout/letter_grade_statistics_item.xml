@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusableInTouchMode="false"
+    android:focusable="false"
+    android:paddingHorizontal="12dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingVertical="12dp">
+
+    <TextView
+        android:id="@+id/letter_grade_statistics_course_tw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        tools:text="CS 319" />
+
+    <TextView
+        android:id="@+id/letter_grade_statistics_name_tw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        tools:text="Object-Oriented Software Engineering" />
+
+    <TextView
+        android:id="@+id/letter_grade_statistics_semester_tw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textAppearance="?attr/textAppearanceCaption"
+        tools:text="2021-2022 Spring" />
+
+</LinearLayout>

@@ -39,4 +39,6 @@
     <string name="srs_semester_courses_label">Semester Courses</string>
     <string name="srs_transcript_label">Transcript</string>
     <string name="srs_weekly_schedule_label">Weekly Schedule</string>
+    <string name="letter_grade_statistics_download_graph_text">Download Graph</string>
+    <string name="letter_grade_statistics_graph_description_text">Letter grade statistics graph</string>
 </resources>

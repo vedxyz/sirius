@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_letter_grade_statistics_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true">
+
+    <FrameLayout
+        android:id="@+id/letter_grade_statistics_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <include
+            layout="@layout/loading_screen"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/letter_grade_statistics_graph_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/letter_grade_statistics_graph_iw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="8dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/letter_grade_statistics_graph_description_text"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/letter_grade_statistics_placeholder_image" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/letter_grade_statistics_download_button"
+                android:text="@string/letter_grade_statistics_download_graph_text"
+                app:icon="@drawable/ic_baseline_cloud_download_24" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -38,6 +38,10 @@
         android:id="@+id/letter_grade_statistics_navfragment"
         android:name="xyz.vedat.sirius.fragments.authenticated.LetterGradeStatisticsFragment"
         android:label="LetterGradeStatisticsFragment" />
+    <dialog
+        android:id="@+id/letter_grade_statistics_dialog_navfragment"
+        android:name="xyz.vedat.sirius.fragments.authenticated.LetterGradeStatisticsDialogFragment"
+        android:label="LetterGradeStatisticsDialogFragment" />
 
     <fragment
         android:id="@+id/semester_courses_navfragment"
