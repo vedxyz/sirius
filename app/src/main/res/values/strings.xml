@@ -41,4 +41,5 @@
     <string name="srs_weekly_schedule_label">Weekly Schedule</string>
     <string name="letter_grade_statistics_download_graph_text">Download Graph</string>
     <string name="letter_grade_statistics_graph_description_text">Letter grade statistics graph</string>
+    <string name="exam_classrooms_label_text">Classrooms</string>
 </resources>

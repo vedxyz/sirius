@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="12dp">
+
+    <TextView
+        android:id="@+id/exam_time_tw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textAppearance="?attr/textAppearanceCaption"
+        tools:text="Jul 18, 17:20 (17:30 - 19:30)" />
+
+    <TextView
+        android:id="@+id/exam_course_tw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        tools:text="CS 319 Object-Oriented Software Engineering" />
+
+    <TextView
+        android:id="@+id/exam_type_tw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        tools:text="Final Exam" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/exam_classrooms_label_text"
+        android:textAppearance="?attr/textAppearanceOverline" />
+
+    <TextView
+        android:id="@+id/exam_classrooms_tw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBody2"
+        tools:text="EB-101, EB-102, EB-103, EB-104, EB-203, EB-204, EB-101, EB-102, EB-103, EB-104, EB-203, EB-204" />
+
+</LinearLayout>
