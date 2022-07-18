@@ -42,4 +42,7 @@
     <string name="letter_grade_statistics_download_graph_text">Download Graph</string>
     <string name="letter_grade_statistics_graph_description_text">Letter grade statistics graph</string>
     <string name="exam_classrooms_label_text">Classrooms</string>
+    <string name="semester_course_instructor_text">by %1$s</string>
+    <string name="semester_courses_year_hint">Year</string>
+    <string name="semester_courses_season_hint">Season</string>
 </resources>
