@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_srs_hub"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize">
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/m3_bottomappbar_height"
+        tools:ignore="PrivateResource">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/srs_nav_host_fragment"
@@ -28,10 +31,13 @@
             android:id="@+id/srs_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/m3_bottomappbar_height"
             app:behavior_hideable="true"
             app:headerLayout="@layout/header_srs_navigation_menu"
             app:layout_behavior="@string/bottom_sheet_behavior"
-            app:menu="@menu/srs_navigation_menu" />
+            app:menu="@menu/srs_navigation_menu"
+            tools:ignore="PrivateResource" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
