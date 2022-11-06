@@ -53,8 +53,8 @@ class SemesterCoursesFragment : Fragment(R.layout.fragment_semester_courses) {
         getDropdownView(yearTil)?.setOnItemClickListener { _, _, _, _ -> fetchWithCurrent() }
         getDropdownView(seasonTil)?.setOnItemClickListener { _, _, _, _ -> fetchWithCurrent() }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     if (it.isLoading) {
                         if (it.semesterCourses == null) {

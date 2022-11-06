@@ -40,8 +40,8 @@ class ExamsFragment : Fragment(R.layout.fragment_exams) {
             viewModel.fetch()
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     if (it.isLoading) {
                         if (it.exams == null) {

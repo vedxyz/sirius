@@ -86,8 +86,8 @@ class InformationCardFragment : Fragment(R.layout.fragment_information_card) {
         contactBilkentEmailItem = getAndSetKey(view, R.id.information_card_contact_bilkentemail, "Bilkent Email")
         contactMobilePhoneItem = getAndSetKey(view, R.id.information_card_contact_mobilephone, "Mobile Phone")
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     if (it.isLoading) {
                         if (it.informationCard == null) {

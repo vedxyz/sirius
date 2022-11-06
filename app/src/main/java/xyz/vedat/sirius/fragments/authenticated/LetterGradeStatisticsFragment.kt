@@ -48,8 +48,8 @@ class LetterGradeStatisticsFragment : Fragment(R.layout.fragment_letter_grade_st
             viewModel.fetch()
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     if (it.isLoading) {
                         if (it.items == null) {

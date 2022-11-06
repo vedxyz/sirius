@@ -47,8 +47,8 @@ class LetterGradeStatisticsDialogFragment : BottomSheetDialogFragment() {
             saveGraph(viewModel.uiState.value.let { it.items!![it.activeIndex!!] })
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     if (state.activeIndex == null || state.items?.get(state.activeIndex)?.image == null) {
                         mainContent.visibility = View.GONE
