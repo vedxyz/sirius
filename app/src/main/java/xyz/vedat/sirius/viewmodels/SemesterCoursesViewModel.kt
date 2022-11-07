@@ -11,12 +11,22 @@ import kotlinx.coroutines.withContext
 import srs.data.Semester
 import srs.data.SemesterCourses
 import xyz.vedat.sirius.SessionManager
+import xyz.vedat.sirius.fragments.authenticated.components.ISemesterSelectorUiState
+import xyz.vedat.sirius.fragments.authenticated.components.ISemesterSelectorViewModel
 
-class SemesterCoursesViewModel : ViewModel() {
-    data class UiState(val isLoading: Boolean = true, val semesterCourses: SemesterCourses? = null)
+class SemesterCoursesViewModel : ViewModel(), ISemesterSelectorViewModel {
+    data class UiState(
+        val isLoading: Boolean = true,
+        val semesterCourses: SemesterCourses? = null,
+        override val isSemesterSelectorLoading: Boolean = true,
+        override val semesterSelectorOptions: List<Semester>? = null,
+    ) : ISemesterSelectorUiState {
+        override val semesterSelectorSelection: Semester?
+            get() = semesterCourses?.semester
+    }
 
     private val _uiState = MutableStateFlow(UiState())
-    val uiState = _uiState.asStateFlow()
+    override val uiState = _uiState.asStateFlow()
 
     fun fetch(semester: Semester? = null) {
         _uiState.update {
@@ -32,5 +42,29 @@ class SemesterCoursesViewModel : ViewModel() {
                 it.copy(isLoading = false, semesterCourses = result)
             }
         }
+    }
+
+    fun fetchWithCurrent() {
+        fetch(uiState.value.semesterSelectorSelection)
+    }
+
+    override fun fetchSemesterSelectorOptions() {
+        _uiState.update {
+            it.copy(isSemesterSelectorLoading = true)
+        }
+
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                SessionManager.session?.getSemesters() ?: throw Exception("No session")
+            }
+
+            _uiState.update {
+                it.copy(isSemesterSelectorLoading = false, semesterSelectorOptions = result)
+            }
+        }
+    }
+
+    override fun onSemesterSelectorSelected(semester: Semester) {
+        fetch(semester)
     }
 }

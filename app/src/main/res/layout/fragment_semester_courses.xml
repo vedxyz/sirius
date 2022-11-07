@@ -40,48 +40,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/semester_courses_year_til"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/semester_courses_season_til"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.45">
-
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/semester_courses_year_hint"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/semester_courses_season_til"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/semester_courses_year_til"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.45">
-
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/semester_courses_season_hint"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/semester_selector"
+        android:name="xyz.vedat.sirius.fragments.authenticated.components.SemesterCoursesSelectorFragment" />
 
 </LinearLayout>
