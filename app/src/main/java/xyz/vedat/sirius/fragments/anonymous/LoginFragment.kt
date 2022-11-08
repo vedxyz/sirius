@@ -133,12 +133,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         return try {
-            createSharedPrefs();
+            createSharedPrefs()
         } catch (e: Exception) {
             Log.w(defaultLogTag, e)
             Log.i(defaultLogTag, "Couldn't create shared prefs, re-attempting after deleting current")
             requireContext().deleteSharedPreferences(mainSecretPrefs)
-            createSharedPrefs();
+            createSharedPrefs()
         }
     }
 
