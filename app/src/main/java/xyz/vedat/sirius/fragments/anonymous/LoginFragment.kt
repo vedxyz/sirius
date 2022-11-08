@@ -1,5 +1,6 @@
 package xyz.vedat.sirius.fragments.anonymous
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 import xyz.vedat.sirius.R
 import xyz.vedat.sirius.SessionManager
+import xyz.vedat.sirius.defaultLogTag
 import xyz.vedat.sirius.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -117,13 +119,28 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun resolveEmail(emailString: String) =
         if (emailString.contains('@')) emailString else emailString + getString(R.string.login_bilkent_email_suffix)
 
-    private fun getSecretPrefs() = EncryptedSharedPreferences.create(
-        "main_secret_prefs",
-        MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
-        requireContext(),
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    )
+    private fun getSecretPrefs(): SharedPreferences {
+        val mainSecretPrefs = "main_secret_prefs"
+
+        val createSharedPrefs = {
+            EncryptedSharedPreferences.create(
+                mainSecretPrefs,
+                MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+                requireContext(),
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+        }
+
+        return try {
+            createSharedPrefs();
+        } catch (e: Exception) {
+            Log.w(defaultLogTag, e)
+            Log.i(defaultLogTag, "Couldn't create shared prefs, re-attempting after deleting current")
+            requireContext().deleteSharedPreferences(mainSecretPrefs)
+            createSharedPrefs();
+        }
+    }
 
     private val secretPrefKeys = object {
         val bilkentId = "login_bilkent_id"
