@@ -163,8 +163,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleUiState(view: View) {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     if (it.verificationFragmentId != null) {
                         findNavController().navigate(it.verificationFragmentId)
