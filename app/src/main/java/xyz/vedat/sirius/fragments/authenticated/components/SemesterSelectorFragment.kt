@@ -78,7 +78,7 @@ abstract class SemesterSelectorFragment : Fragment(R.layout.fragment_semester_se
 
         yearDropdown.setSimpleItems(semesters.distinctBy { it.year }.map { it.year }.toTypedArray())
 
-        val selection = selectorSelection ?: semesters.first()
+        val selection = selectorSelection ?: semesters.last()
         updateSelectorSeasonsForYear(semesters, selection.year)
         updateSelectorText(selection)
     }
