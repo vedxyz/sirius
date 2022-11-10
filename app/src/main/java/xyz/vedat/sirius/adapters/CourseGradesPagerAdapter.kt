@@ -25,6 +25,6 @@ class CourseGradesPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragme
     override fun getItemCount() = grades?.size ?: 0
 
     override fun createFragment(position: Int): Fragment {
-        return CourseGradesFragment.new(grades!![position])
+        return CourseGradesFragment.newInstance(grades!![position])
     }
 }
