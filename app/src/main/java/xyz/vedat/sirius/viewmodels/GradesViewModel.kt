@@ -1,6 +1,5 @@
 package xyz.vedat.sirius.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +11,6 @@ import kotlinx.coroutines.withContext
 import srs.data.CourseGrades
 import srs.data.Semester
 import xyz.vedat.sirius.SessionManager
-import xyz.vedat.sirius.defaultLogTag
 import xyz.vedat.sirius.fragments.authenticated.components.ISemesterSelectorUiState
 import xyz.vedat.sirius.fragments.authenticated.components.ISemesterSelectorViewModel
 
@@ -22,7 +20,8 @@ class GradesViewModel : ViewModel(), ISemesterSelectorViewModel {
         val grades: List<CourseGrades>? = null,
         override val isSemesterSelectorLoading: Boolean = true,
         override val semesterSelectorOptions: List<Semester>? = null,
-        override val semesterSelectorSelection: Semester? = null
+        override val semesterSelectorSelection: Semester? = null,
+        val shouldResetPosition: Boolean = false
     ) : ISemesterSelectorUiState
 
     private val _uiState = MutableStateFlow(UiState())
@@ -41,8 +40,17 @@ class GradesViewModel : ViewModel(), ISemesterSelectorViewModel {
                 SessionManager.session?.getCurrentSemester() ?: throw Exception("No session")
             }
 
+            val shouldResetPosition = _uiState.value.semesterSelectorSelection?.let {
+                it != selectedSemester
+            } ?: false
+
             _uiState.update {
-                it.copy(isLoading = false, grades = result, semesterSelectorSelection = selectedSemester)
+                it.copy(
+                    isLoading = false,
+                    grades = result,
+                    semesterSelectorSelection = selectedSemester,
+                    shouldResetPosition = shouldResetPosition
+                )
             }
         }
     }
@@ -70,4 +78,6 @@ class GradesViewModel : ViewModel(), ISemesterSelectorViewModel {
     override fun onSemesterSelectorSelected(semester: Semester) {
         fetch(semester)
     }
+
+    fun resetPositionConsumed() = _uiState.update { it.copy(shouldResetPosition = false) }
 }

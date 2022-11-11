@@ -66,6 +66,11 @@ class GradesFragment : Fragment(R.layout.fragment_grade) {
                         swipeRefreshLayout.isRefreshing = false
 
                         pagerAdapter.submitList(it.grades!!)
+
+                        if (it.shouldResetPosition) {
+                            viewPager.setCurrentItem(0, true)
+                            viewModel.resetPositionConsumed()
+                        }
                     }
                 }
             }
