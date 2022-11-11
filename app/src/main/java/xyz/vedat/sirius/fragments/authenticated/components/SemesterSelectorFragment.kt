@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import srs.data.Semester
 import srs.data.SemesterType
 import xyz.vedat.sirius.R
+import xyz.vedat.sirius.viewmodels.AttendanceViewModel
 import xyz.vedat.sirius.viewmodels.GradesViewModel
 import xyz.vedat.sirius.viewmodels.SemesterCoursesViewModel
 
@@ -101,4 +102,8 @@ class SemesterCoursesSelectorFragment : SemesterSelectorFragment() {
 
 class GradesSemesterSelectorFragment : SemesterSelectorFragment() {
     override val viewModel: GradesViewModel by viewModels({ requireParentFragment() })
+}
+
+class AttendanceSemesterSelectorFragment : SemesterSelectorFragment() {
+    override val viewModel: AttendanceViewModel by viewModels({ requireParentFragment() })
 }

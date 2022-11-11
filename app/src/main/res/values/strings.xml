@@ -45,4 +45,5 @@
     <string name="semester_course_instructor_text">by %1$s</string>
     <string name="semester_courses_year_hint">Year</string>
     <string name="semester_courses_season_hint">Season</string>
+    <string name="attendance_ratio_label">Attendance Ratio</string>
 </resources>
