@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="8dp">
+
+    <TextView
+        android:id="@+id/daily_schedule_item_timeslot_tw"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="12dp"
+        android:textAppearance="?attr/textAppearanceOverline"
+        tools:text="13:30 - 14:20" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="1dp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/daily_schedule_item_details_tw"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingHorizontal="12dp"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        tools:text="CS 315 - 003\nEA-Z01\nFace-to-face\nLecture (Spare Hour)" />
+
+</LinearLayout>
