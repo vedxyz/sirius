@@ -10,12 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 import xyz.vedat.sirius.R
 import xyz.vedat.sirius.adapters.CourseGradesPagerAdapter
+import xyz.vedat.sirius.disableViewWhileScrolling
 import xyz.vedat.sirius.viewmodels.GradesViewModel
 
 class GradesFragment : Fragment(R.layout.fragment_grade) {
@@ -46,11 +46,7 @@ class GradesFragment : Fragment(R.layout.fragment_grade) {
             tab.text = viewModel.uiState.value.grades!![position].title
         }.attach()
 
-        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageScrollStateChanged(state: Int) {
-                swipeRefreshLayout.isEnabled = state == ViewPager2.SCROLL_STATE_IDLE
-            }
-        })
+        viewPager.disableViewWhileScrolling(swipeRefreshLayout)
 
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.fetchWithCurrent()
